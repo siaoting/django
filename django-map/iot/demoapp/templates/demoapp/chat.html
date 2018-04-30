@@ -1,0 +1,37 @@
+{% load static i18n %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat Room</title>
+    <link href='//fonts.googleapis.com/css?family=Raleway:400,300,600,200' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="/static/normalize.css">
+        <link rel="stylesheet" href="/static/skeleton.css">
+        <link rel="stylesheet" href="/static/chat.css">
+</head>
+<body>
+    <div class="section">
+    <div class="container">
+        <form action="/chatapp/get_name/" method="post">
+            {% csrf_token %}
+            <table id="chat">
+            <tbody>
+            <tr>
+            <label for="name">Your name: </label>
+            <input id="name" type="text" name="name" value="{{ current_name }}" required>
+            </tr><tr>
+            <label for="password">Password: </label>
+            <input id="password" type="password" name="password" value="" required>
+            </tr>
+            </tbody>
+            <tfoot>
+            <td colspan=2>
+                <input type="submit" name="signin" value="Sign In">
+                <input type="submit" name="signup" value="Sign Up">
+            </td>
+            </tfoot>
+        </form>
+    </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,118 @@
+  <html>
+  <head>
+    <!-- Bootstrap core CSS -->
+    <link href="/static/bootstrap/css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/static/bootstrap/css/product.css" rel="stylesheet">
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="/static/bootstrap/js/jquery-slim.min.js"><\/script>')</script>
+    <script src="/static/bootstrap/js/popper.min.js"></script>
+    <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/static/bootstrap/js/holder.min.js"></script>
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawPhChart);
+      google.charts.setOnLoadCallback(drawHumidChart);
+      google.charts.setOnLoadCallback(drawTemperatureChart);
+      google.charts.setOnLoadCallback(drawLightChart);
+
+      function drawPhChart() {
+        var djangodata = {{ phs|safe }};
+        var data = google.visualization.arrayToDataTable(djangodata);
+
+        var options = {
+          title: 'Ph level',
+          titleTextStyle: {
+             color: '#1f6841',
+          },
+          curveType: 'function',
+          colors:['#1f6841'],
+          legend: { position: 'bottom' }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('ph_curve_chart'));
+
+        chart.draw(data, options);
+      }
+
+      function drawHumidChart() {
+        var djangodata = {{ humids|safe }};
+        var data = google.visualization.arrayToDataTable(djangodata);
+
+        var options = {
+          title: 'Humidity',
+          titleTextStyle: {
+             color: '#1f6841',
+          },
+          curveType: 'function',
+          colors:['#1f6841'],
+          legend: { position: 'bottom' }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('humid_curve_chart'));
+
+        chart.draw(data, options);
+      }
+ 
+      function drawTemperatureChart() {
+        var djangodata = {{ temperatures|safe }};
+        var data = google.visualization.arrayToDataTable(djangodata);
+
+        var options = {
+          title: 'Temperature',
+          titleTextStyle: {
+             color: '#1f6841',
+          },
+          curveType: 'function',
+          colors:['#1f6841'],
+          legend: { position: 'bottom' }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('temperature_curve_chart'));
+
+        chart.draw(data, options);
+      }
+ 
+      function drawLightChart() {
+        var djangodata = {{ lights|safe }};
+        var data = google.visualization.arrayToDataTable(djangodata);
+
+        var options = {
+          title: 'Lighting',
+          titleTextStyle: {
+             color: '#1f6841',
+          },
+          curveType: 'function',
+          colors:['#1f6841'],
+          legend: { position: 'bottom' }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('light_curve_chart'));
+
+        chart.draw(data, options);
+      }
+    </script>
+  </head>
+  <body>
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <nav class="site-header sticky-top py-1">
+        <div class="text-center text-white overflow-hidden">
+            <h1>History</h1>
+        </div>
+    </nav>
+
+    <tr>
+        <td><div id="ph_curve_chart"></div></td>
+        <td><div id="humid_curve_chart" ></div></td>
+        <td><div id="temperature_curve_chart"></div></td>
+        <td><div id="light_curve_chart" ></div></td>
+    </tr>
+  </body>
+</html>

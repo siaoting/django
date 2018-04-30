@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <select name="selectcities" id="selectcities">
+        {% for item in cities %}
+	    <option val="{{ item.name }}"> {{ item.name }} </option>	
+	{% endfor %}
+    </select>
+    <form method="post" id="cityForm" data-cities-url="{% url 'ajax_load_cities' %}" novalidate>
+    {% csrf_token %}
+        <table>
+      {{ form.as_table }}
+    </table>
+    <button type="submit">Send</button>
+  </form>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script>
+    $("#id_city").change(function () {
+      var url = $("#cityForm").attr("data-cities-url");
+      var cityId = $(this).val();
+      $.ajax({
+        url: url,
+        data: {
+          'city': cityId
+        },
+        success: function (data) {
+          //$("#id_city").html(data);
+        }
+      });
+    });
+  </script>
+
+{% endblock %}
